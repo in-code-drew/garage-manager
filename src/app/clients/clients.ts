@@ -69,7 +69,10 @@ export class Clients {
 
   onSubmit(form: NgForm): void {
     // guard close: if form is not valid, exits instantly
-    if (form.invalid) return;
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
 
     const payload: Omit<Client, 'id'> = {
     fullName: trim(this.newClient.fullName),

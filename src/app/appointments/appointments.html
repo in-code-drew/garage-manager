@@ -1,6 +1,6 @@
 <div class="page-card">
   <h2 class="section-title">Appuntamenti</h2>
-  
+
   <form #apptForm="ngForm"
         (ngSubmit)="onSubmit(apptForm)"
         class="appointments-form">
@@ -35,7 +35,7 @@
               #vehicleCtrl="ngModel">
         <option [ngValue]="0">Seleziona un veicolo..</option>
 
-       @for (vehicle of (vehicles$ | async) ?? []; track vehicle.id) {
+      @for (vehicle of (vehicles$ | async) ?? []; track vehicle.id) {
         <option [ngValue]="vehicle.id">
           {{ vehicle.make }} {{ vehicle.model }} ({{ vehicle.id }}) - {{ vehicle.ownerFullName }} ({{ vehicle.clientId }})
         </option>
@@ -98,7 +98,7 @@
       <tr>
         <th>ID</th>
         <th>Cliente(id)</th>
-        <th>Informazioni sul veicolo</th>
+        <th>Veicolo(id)</th>
         <th>Data</th>
         <th>Ora</th>
         <th>Tipologia lavorazione</th>

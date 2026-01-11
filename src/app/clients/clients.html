@@ -19,12 +19,12 @@
       <input id="phone"
             name="phone"
             [(ngModel)]="newClient.phone"
-            required 
+            required
             [pattern]="phoneRegex.source"
             #phone="ngModel"
             />
             <br>
-            @if (phone.touched && phone.invalid) {
+            @if  (phone.invalid && phone.touched) {
               <small class="invalid-field">
                 @if (phone.errors?.['required']) {
                   Telefono obbligatorio
@@ -47,7 +47,7 @@
             #email="ngModel"
             />
             <br>
-      @if(email.touched && email.invalid) {
+      @if (email.invalid && (email.touched || clientForm.submitted)) {
         <small class="invalid-field">
           @if (email.errors?.['required']) {
             Email obbligatoria
@@ -58,7 +58,7 @@
           }
         </small>
       }
-        
+
     </div>
 
     <button type="submit" [disabled]="clientForm.invalid">
