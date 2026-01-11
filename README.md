@@ -2,6 +2,10 @@
 
 Mini gestionale per officina sviluppato in Angular.
 
+## Screenshot
+
+![Dashboard](screenshots/gm-dashboard.png)
+
 ## Obiettivo
 Progetto sviluppato per approfondire Angular e RxJS.
 
