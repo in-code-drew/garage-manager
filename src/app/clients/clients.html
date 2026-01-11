@@ -1,0 +1,116 @@
+<div class="page-card">
+  <h2 class="section-title">Clienti</h2>
+
+  <form #clientForm="ngForm"
+        (ngSubmit)="onSubmit(clientForm)"
+        class="clients-form">
+
+    <div>
+      <label for="fullName">Nome:</label>
+      <input id="fullName"
+            name="fullName"
+            type="text"
+            [(ngModel)]="newClient.fullName"
+            required />
+    </div>
+
+    <div>
+      <label for="phone">Telefono:</label>
+      <input id="phone"
+            name="phone"
+            [(ngModel)]="newClient.phone"
+            required 
+            [pattern]="phoneRegex.source"
+            #phone="ngModel"
+            />
+            <br>
+            @if (phone.touched && phone.invalid) {
+              <small class="invalid-field">
+                @if (phone.errors?.['required']) {
+                  Telefono obbligatorio
+                }
+
+                @if (phone.errors?.['pattern']) {
+                  Telefono non valido (8–12 cifre)
+                }
+              </small>
+            }
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input id="email"
+            name="email"
+            [(ngModel)]="newClient.email"
+            required
+            [pattern]="emailRegex.source"
+            #email="ngModel"
+            />
+            <br>
+      @if(email.touched && email.invalid) {
+        <small class="invalid-field">
+          @if (email.errors?.['required']) {
+            Email obbligatoria
+          }
+
+          @if (email.errors?.['pattern']) {
+            Email non valida
+          }
+        </small>
+      }
+        
+    </div>
+
+    <button type="submit" [disabled]="clientForm.invalid">
+      {{ editingId === null ? 'Aggiungi cliente' : 'Salva modifiche' }}
+    </button>
+
+    @if(editingId !== null) {
+      <button type="button"
+      (click)="cancelEdit(clientForm)">
+      Anulla
+      </button>
+    }
+  </form>
+
+  <div class="search-row">
+    <label for="search">Cerca (ID o nome):</label>
+    <input
+      id="search"
+      name="search"
+      type="text"
+      placeholder="Es: 2 oppure Mario"
+      (input)="onSearch($any($event.target).value)"
+    />
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Telefono</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+  @for (client of (filteredClients$ | async) ?? []; track client.id) {
+    <tr>
+      <td>{{ client.id }}</td>
+      <td class="td">{{ client.fullName }}</td>
+      <td class="td">{{ client.phone }}</td>
+      <td class="td">{{ client.email }}</td>
+      <td>
+        <button type="button" (click)="startEdit(client)">Modifica</button>
+        <button type="button" (click)="removeClient(client.id)" class="delete">Rimuovi</button>
+      </td>
+    </tr>
+  } @empty {
+    <tr>
+      <td colspan="6">Nessun cliente presente.</td>
+    </tr>
+  }
+  </tbody>
+
+  </table>
+</div>

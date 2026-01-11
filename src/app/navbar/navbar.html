@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <div class="navbar_container">
+    <h1 class="navbar_title">Garage Manager</h1>
+    
+    <ul class="navbar_menu">
+      @for (item of menuItems; track item.path){
+        <li>
+          <a class="menu_voices" [routerLink]="item.path" routerLinkActive="active">
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>

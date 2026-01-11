@@ -1,0 +1,88 @@
+<div class="page-card">
+    <h2 class="section-title">Revisioni</h2>
+
+    <form #revForm="ngForm" (ngSubmit)="onSubmit(revForm)" class="revisions-form">
+
+        <div>
+            <label>Veicolo:</label>
+            <select name="vehicleId" [(ngModel)]="newRevision.vehicleId" required>
+                <option [ngValue]="0">Seleziona...</option>
+                @for (v of (vehicles$ | async) ?? []; track v.id) {
+                <option [ngValue]="v.id">{{ v.make }} {{ v.model }} ({{ v.carPlate }})</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label>Targa:</label>
+            <input name="carPlate" [(ngModel)]="newRevision.carPlate" required />
+        </div>
+
+        <div>
+            <label>Data revisione:</label>
+            <input type="date" name="date" [(ngModel)]="newRevision.date" required />
+        </div>
+
+        <div>
+            <label>Scadenza:</label>
+            <input type="date" name="nextExpiryDate" [(ngModel)]="newRevision.nextExpiryDate" required />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit">
+            {{ editingId === null ? 'Aggiungi revisione' : 'Salva modifiche' }}
+            </button>
+
+            @if (editingId !== null) {
+                <button type="button"
+                class="cancel-revision"
+                (click)="cancelEdit(revForm)">Annulla</button>
+            }
+        </div>
+    </form>
+
+    <hr>
+
+    <div class="page-content">
+    <div class="table-wrapper">
+        <table class="table">
+        <thead>
+            <tr>
+            <th>Veicolo(id)</th>
+            <th>Targa</th>
+            <th>Data revisione</th>
+            <th>Scadenza</th>
+            <th>Stato</th>
+            <th class="actions">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+    @for (revision of (revisions$ | async) ?? []; track revision.id) {
+        <tr>
+            <td>{{ revision.vehicleId }}</td>
+            <td>{{ revision.carPlate }}</td>
+            <td>{{ formatDate(revision.date) }}</td>
+            <td>{{ formatDate(revision.nextExpiryDate) }}</td>
+            <td>
+            <span
+                class="expBadge"
+                [class.badge-danger]="isExpired(revision)"
+                [class.badge-success]="!isExpired(revision)">
+                {{ isExpired(revision) ? 'Scaduta' : 'Valida' }}
+            </span>
+            </td>
+            <td class="modify">
+                <button class="icon-button" (click)="startEdit(revision)">Modifica</button>
+                <button class="delete" (click)="deleteRevision(revision.id)">Elimina</button>
+            </td>
+        </tr>
+    } @empty {
+        <tr>
+        <td colspan="6">Nessuna revisione presente.</td>
+        </tr>
+    }
+        </tbody>
+        </table>
+    </div>
+    </div>
+</div>

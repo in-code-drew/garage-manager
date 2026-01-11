@@ -1,0 +1,94 @@
+*{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.appointments-form {
+    line-height: 1.8em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .add-appointment {
+        margin: 0.5em 0 0 3em;
+        width: 22em;
+        padding: 3px 6px;
+        font-size: 13px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        color: #111827;
+        transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .add-appointment:hover {
+        background-color: #e5e7eb;
+    }
+
+    select {
+        background-color: #c9d1f1;
+        border: 1px solid white;
+        padding: 0 0.2em;
+        border-radius: 5px;
+        margin-left: 1em;
+    }
+
+    input {
+        background-color: #c9d1f1;
+        border: 1px solid white;
+        padding: 0 0.2em;
+        border-radius: 5px;
+        margin-left: 1em;
+    }
+
+    #note{
+        min-width: 20%;
+        min-height: 4em;
+    }
+    
+    .error{
+        color: #dc2626;
+        font-size: 0.8em;
+        margin-left: 0.5em;
+    }
+}
+
+table {
+    min-width: 100%;
+
+    th {
+        border: 1px solid rgb(170, 170, 170);
+        border-radius: 4px;
+    }
+
+    td {
+        text-align: center;
+        border: 1px solid rgb(170, 170, 170);
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 3px 6px;
+        margin-left: 0.1em;
+        font-size: 13px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        background-color: #f3f4f6;
+        color: #111827;
+        transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    button:hover {
+        background-color: #e5e7eb;
+    }
+
+    .delete {
+        background-color: #fee2e2;
+        color: #b91c1c;
+        margin-left: 0.2em;
+    }
+
+    .delete:hover {
+        background-color: #fecaca;
+    }
+}

@@ -1,0 +1,25 @@
+
+<div class="page-card">
+    <h2 class="section-title">Dashboard</h2>
+    
+    <div class="dashboard-grid">
+        <div class="card">
+            <h3>Clienti</h3>
+            <p class="total-amount-clients">{{ totalClients$ | async }}</p>
+            <a routerLink="/clients">Vai a Clienti</a>
+        </div>
+
+        <div class="card">
+            <h3>Veicoli</h3>
+            <p class="total-amount-clients">{{ totalVehicles$ | async}}</p>
+            <a routerLink="/vehicles">Vai a Veicoli</a>
+        </div>
+
+        <div class="card">
+            <h3>Appuntamenti</h3>
+            <p class="total-amount-clients">{{ totalAppointments$ | async }}</p>
+            <p class="small-text">Prossimi: {{ upcomingAppointments$ | async}}</p>
+            <a routerLink="/appointments">Vai a Appuntamenti</a>
+        </div>
+    </div>
+</div>

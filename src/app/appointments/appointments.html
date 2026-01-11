@@ -1,0 +1,128 @@
+<div class="page-card">
+  <h2 class="section-title">Appuntamenti</h2>
+  
+  <form #apptForm="ngForm"
+        (ngSubmit)="onSubmit(apptForm)"
+        class="appointments-form">
+
+    <div>
+      <label for="clientId">Cliente(id):</label>
+      <select id="clientId"
+              name="clientId"
+              [(ngModel)]="newAppointment.clientId"
+              required
+              #clientCtrl="ngModel">
+        <option [ngValue]="0">Seleziona un cliente..</option>
+
+        @for (client of (clients$ | async) ?? []; track client.id) {
+          <option [ngValue]="client.id">
+            {{ client.fullName }} ({{ client.id }})
+          </option>
+        }
+
+      </select>
+      @if (clientCtrl.invalid && (clientCtrl.touched || apptForm.submitted)) {
+        <small class="error">Seleziona un cliente.</small>
+      }
+    </div>
+
+    <div>
+      <label for="vehicleId">Veicolo:</label>
+      <select id="vehicleId"
+              name="vehicleId"
+              [(ngModel)]="newAppointment.vehicleId"
+              required
+              #vehicleCtrl="ngModel">
+        <option [ngValue]="0">Seleziona un veicolo..</option>
+
+       @for (vehicle of (vehicles$ | async) ?? []; track vehicle.id) {
+        <option [ngValue]="vehicle.id">
+          {{ vehicle.make }} {{ vehicle.model }} ({{ vehicle.id }}) - {{ vehicle.ownerFullName }} ({{ vehicle.clientId }})
+        </option>
+      }
+
+      </select>
+      @if (vehicleCtrl.invalid && (vehicleCtrl.touched || apptForm.submitted)) {
+        <small class="error">Seleziona un veicolo.</small>
+      }
+    </div>
+
+    <div>
+      <label for="date">Data:</label>
+      <input id="date"
+            name="date"
+            type="date"
+            [(ngModel)]="newAppointment.date"
+            required
+            #dateCtrl="ngModel" />
+      @if (dateCtrl.invalid && (dateCtrl.touched || apptForm.submitted)) {
+        <small class="error">La data è obbligatoria.</small>
+      }
+    </div>
+
+    <div>
+      <label for="hour">Ora:</label>
+      <input id="hour"
+            name="hour"
+            type="time"
+            [(ngModel)]="newAppointment.hour"
+            required
+            #hourCtrl="ngModel" />
+      @if (hourCtrl.invalid && (hourCtrl.touched || apptForm.submitted)) {
+        <small class="error">L'ora è obbligatoria.</small>
+      }
+    </div>
+
+    <div>
+      <label for="note">Note/lavorazione:</label>
+      <input id="note"
+            name="note"
+            type="text"
+            [(ngModel)]="newAppointment.note" />
+    </div>
+
+    <button type="submit" [disabled]="apptForm.invalid" class="add-appointment">
+      {{ editingId === null ? 'Aggiungi appuntamento' : 'Salva modifiche' }}
+    </button>
+
+    @if (editingId !== null) {
+      <button type="button" (click)="cancelEdit(apptForm)">
+        Annulla
+      </button>
+    }
+  </form>
+
+  <hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cliente(id)</th>
+        <th>Informazioni sul veicolo</th>
+        <th>Data</th>
+        <th>Ora</th>
+        <th>Tipologia lavorazione</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (app of (appointments$ | async) ?? []; track app.id; let index = $index) {
+        <tr>
+          <td>{{ index + 1 }}</td>
+          <td>{{ app.ownerFullName }} ({{ app.clientId }})</td>
+          <td>{{ app.vehicleId }}</td>
+          <td>{{ app.date }}</td>
+          <td>{{ app.hour }}</td>
+          <td>{{ app.note }}</td>
+          <td>
+            <button type="button" (click)="startEdit(app)">Modifica</button>
+            <button type="button" (click)="deleteAppointment(app.id)" class="delete">Elimina</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7">Nessun appuntamento presente.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

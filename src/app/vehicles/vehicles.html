@@ -1,0 +1,164 @@
+<div class="page-card">
+  <h2 class="section-title">Veicoli</h2>
+  
+  <form #vehicleForm="ngForm"
+      (ngSubmit)="onSubmit(vehicleForm)"
+      class="vehicles-form">
+
+      <div class="vehicle-add-panel">
+          <label for="clientId">Cliente(id):</label>
+          <select id="clientId"
+                  name="clientId"
+                  [(ngModel)]="newVehicle.clientId"
+                  required
+                  #clientCtrl="ngModel">
+          <option [ngValue]="0">Seleziona un cliente</option>
+
+          @for (client of (clients$ | async) ?? []; track client.id) {
+              <option [ngValue]="client.id">
+              {{ client.fullName }} - ID {{ client.id }}
+              </option>
+          }
+          </select>
+          @if (clientCtrl.invalid && (clientCtrl.touched || vehicleForm.submitted)) {
+          <small class="error">Seleziona un cliente.</small>
+          }
+      </div>
+
+
+      <div>
+      <label for="vehicleCategory">Categoria veicolo:</label>
+      <select id="vehicleCategory"
+              name="category"
+              [(ngModel)]="newVehicle.category"
+              required>
+        <option value="">Seleziona categoria...</option>
+        <option value="M1">M1</option>
+        <option value="N1">N1</option>
+        <option value="M2/M3">M2/M3</option>
+        <option value="N2/N3">N2/N3</option>
+        <option value="O1-O4">O1-O4</option>
+      </select>
+    </div>
+
+      <div>
+          <label for="make">Marca:</label>
+          <input id="make"
+                  name="make"
+                  type="text"
+                  [(ngModel)]="newVehicle.make"
+                  required />
+      </div>
+
+      <div>
+          <label for="model">Modello:</label>
+          <input id="model"
+                  name="model"
+                  type="text"
+                  [(ngModel)]="newVehicle.model"
+                  required />
+      </div>
+
+      <div>
+          <label for="year">Anno:</label>
+          <input id="year"
+                  name="year"
+                  type="text"
+                  [(ngModel)]="newVehicle.firstRegistrationDate"
+                  required />
+      </div>
+
+      <div>
+          <label for="carPlate">Targa:</label>
+          <input id="carPlate"
+                  name="carPlate"
+                  type="text"
+                  [(ngModel)]="newVehicle.carPlate"
+                  required />
+      </div>
+
+      <div>
+          <label for="grossWeightKg">Massa a pieno carico(kg):</label>
+          <input id="grossWeightKg"
+                  name="grossWeightKg"
+                  type="number"
+                  [(ngModel)]="newVehicle.grossWeightKg"
+                  required />
+      </div>
+
+      <div>
+          <label for="seats">Posti:</label>
+          <input id="seats"
+                  name="seats"
+                  type="number"
+                  [(ngModel)]="newVehicle.seats"
+                  required />
+      </div>
+
+      <div>
+          <label for="usageType">Tipologia uso:</label>
+          <input id="usageType"
+                  name="usageType"
+                  type="text"
+                  [(ngModel)]="newVehicle.usageType"
+                  required />
+      </div>
+    
+    <button type="submit" [disabled]="vehicleForm.invalid" style="margin-top: 0.5em;">
+      {{ editingId === null ? 'Aggiungi veicolo' : 'Salva modifiche' }}
+    </button>
+
+    @if(editingId !== null){
+      <button type="button"
+      (click)="cancelEdit(vehicleForm)">
+      Anulla
+      </button>
+    }
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cliente(id)</th>
+        <th>Categoria</th>
+        <th>Marca</th>
+        <th>Modello</th>
+        <th>Anno immatricolazione</th>
+        <th>Targa</th>
+        <th>Massa a pieno carico(kg)</th>
+        <th>Posti</th>
+        <th>Tipologia uso</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (vehicle of (vehicles$ | async) ?? []; track vehicle.id) {
+        <tr>
+          <td>{{ vehicle.id }}</td>
+          <td class="td">{{ vehicle.clientId }}</td>
+          <td class="td">{{ vehicle.category }}</td>
+          <td class="td">{{ vehicle.make }}</td>
+          <td class="td">{{ vehicle.model }}</td>
+          <td class="td">{{ vehicle.firstRegistrationDate }}</td>
+          <td class="td">{{ vehicle.carPlate }}</td>
+          <td class="td">{{ vehicle.grossWeightKg }}</td>
+          <td class="td">{{ vehicle.seats }}</td>
+          <td class="td">{{ vehicle.usageType }}</td>
+          <td>
+            <button type="button" (click)="startEdit(vehicle)">
+              Modifica
+            </button>
+            
+            <button type="button" (click)="removeVehicle(vehicle.id)" class="delete">
+              Rimuovi
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="6">Nessun veicolo presente.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

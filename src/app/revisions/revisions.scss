@@ -1,0 +1,139 @@
+* {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+}
+
+tbody {
+  text-align: center;
+}
+
+.revisions-form {
+  line-height: 1.8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  select {
+    background-color: #c9d1f1;
+    border: 1px solid white;
+    padding: 0 0.2em;
+    border-radius: 5px;
+    margin-left: 1em;
+  }
+
+  input {
+    background-color: #c9d1f1;
+    border: 1px solid white;
+    padding: 0 0.2em;
+    border-radius: 5px;
+    margin-left: 1em;
+  }
+
+  textarea {
+    background-color: #c9d1f1;
+    border: 1px solid white;
+    padding: 0.2em 0.35em;
+    border-radius: 5px;
+    margin-left: 1em;
+    min-width: 20%;
+    min-height: 4em;
+    resize: vertical;
+  }
+
+  .error {
+    color: #dc2626;
+    font-size: 0.8em;
+    margin-left: 0.5em;
+  }
+
+  button {
+    margin: 0.5em 0 0 3em;
+    width: 22em;
+    padding: 3px 6px;
+    font-size: 13px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background-color: #f3f4f6;
+    color: #111827;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  button:hover {
+    background-color: #e5e7eb;
+  }
+
+  button[type='button'] {
+    width: auto;
+    margin: 0.5em 0 0 0.2em;
+  }
+}
+
+.table {
+  min-width: 100%;
+
+  th {
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 4px;
+  }
+
+  td {
+    text-align: center;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 4px;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 0.5em;
+    margin: 0.5em 0 0 3em;
+  }
+
+  .form-actions button {
+    width: 11em;          /* metà dei 22em che avevi */
+    padding: 3px 6px;
+    font-size: 13px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background-color: #f3f4f6;
+    color: #111827;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .form-actions button:hover {
+    background-color: #e5e7eb;
+  }
+
+  .cancel-revision {
+    background-color: #f3f4f6;
+  }
+
+  .delete {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    margin-left: 0.2em;
+  }
+
+  .delete:hover {
+    background-color: #fecaca;
+  }
+}
+
+.expBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-success {
+  background-color: #e6f4ea;
+  color: #166534;
+}
+
+.badge-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
